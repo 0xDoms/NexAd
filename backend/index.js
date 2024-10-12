@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import path from "path";
+import { WebSocketServer } from 'ws';
 
 import cryptoRoutes  from "./routes/crypto.route.js"
 import authRoutes  from "./routes/auth.route.js"
+
+import { checkUsers, handleUserConnection } from './utils/advertPayout.js';
 
 import { connectDB } from './db/connectDB.js';
 
@@ -26,7 +29,6 @@ app.use("/api/auth", authRoutes);
 
 console.log("Current NODE_ENV:", process.env.NODE_ENV);
 if (process.env.NODE_ENV === process.env.NODE_ENV) {
-    console.log("Test")
 	app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 	app.get("*", (req, res) => {
@@ -34,9 +36,33 @@ if (process.env.NODE_ENV === process.env.NODE_ENV) {
 	});
 }
 
-
-app.listen(PORT, ()=> {
+const server = app.listen(PORT, () => {
     connectDB();
     console.log(path.join(__dirname, "../frontend/dist"));
-    console.log("Server is running on port: ",PORT);
+    console.log("Server is running on port: ", PORT);
 });
+
+
+const wss = new WebSocketServer({ server });
+const connectedUsers = new Map(); 
+
+wss.on('connection', (ws) => {
+    console.log('Client connected');
+    const connectionTime = Date.now();
+
+    ws.on('message', async (message) => {
+        const { advertId,userId } = JSON.parse(message);
+        handleUserConnection(ws, advertId, userId, connectionTime, connectedUsers);
+    });
+
+    ws.on('close', () => {
+        console.log('Client disconnected');
+        connectedUsers.forEach((value, key) => {
+            if (value.ws === ws) {
+                connectedUsers.delete(key);
+            }
+        });
+    });
+});
+
+setInterval(() => checkUsers(connectedUsers), 3000);

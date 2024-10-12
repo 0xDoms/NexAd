@@ -6,6 +6,9 @@ import { House,LogOut,Megaphone,Droplets,BookCheck,RefreshCcwDot,DiamondPlus,Use
 import Dashboard from "./Dashboard/Dashboard";
 import Faucet from "./Dashboard/Faucet";
 import Logoutp from "./Dashboard/Logoutp";
+import Advertise from "./Dashboard/Advertise";
+import Advertisements from "./Dashboard/Advertisements";
+import Advert from "./Dashboard/Advert";
 
 const DashboardPage = () => {
 
@@ -22,14 +25,11 @@ const DashboardPage = () => {
 				<h1 className="text-lg font-semibold mb-2 text-white my-10">Earn</h1>
 				<NavButton to="/dashboard/advertisements" icon={Megaphone} label="Advertisements" />
 				<NavButton to="/dashboard/faucet" icon={Droplets} label="Faucet" />
-				<NavButton to="/dashboard/tasks" icon={BookCheck} label="Task" />
-				<NavButton to="/dashboard/referrals" icon={RefreshCcwDot} label="Refer" />
 
 				<h1 className="text-lg font-semibold mb-2 text-white my-10">Advertise</h1>
 				<NavButton to="/dashboard/advertise" icon={DiamondPlus} label="Advertise" />
 
 				<h1 className="text-lg font-semibold mb-2 text-white my-10">Account</h1>
-				<NavButton to="/dashboard/account" icon={UserRound} label="Account" />
 				<NavButton to="/dashboard/logout" icon={LogOut} label="Logout" />
 			</div>
 			<div className=" w-10/12 p-10 overflow-y-scroll">
@@ -39,6 +39,9 @@ const DashboardPage = () => {
 					<Route path="/" element={<Dashboard />} />
 					<Route path="faucet" element={<Faucet />} />
 					<Route path="logout" element={<Logoutp />} />
+					<Route path="advertise" element={<Advertise />} />
+					<Route path="advertisements" element={<Advertisements />} />
+					<Route path="advert/:advertid" element={<Advert />} />
 				</Routes>
 			</div>
 		</motion.div>

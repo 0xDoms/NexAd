@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
-import { ChevronUp,ChevronDown,Wallet,Bitcoin,StickyNote,ArrowDownRight,ArrowUpRight } from 'lucide-react';
+import {Wallet,StickyNote } from 'lucide-react';
 
 
 import { useCryptoStore } from "../../store/cryptoStore";
@@ -18,6 +18,7 @@ const Faucet = () => {
 
     const { user } = useAuthStore();
     const { dashboardfacuet, isLoading, error, } = useCryptoStore();
+
 
     const handleFaucet = async (e) => {
 		e.preventDefault();
@@ -108,7 +109,7 @@ const Faucet = () => {
                     />
                     {wallet_address && <HCaptcha sitekey="960e4e3c-8e76-4bda-b0fc-d7c01fa043d4" onVerify={token => setToken(token)} onExpire={e => setToken("")}/>}
                     {error && <p className='text-red-500 font-semibold mb-2'>{error}</p>}
-                     <motion.button
+                    <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className='w-full py-3 px-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-lg shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200'

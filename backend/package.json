@@ -26,7 +26,8 @@
     "jsonwebtoken": "^9.0.2",
     "mailtrap": "^3.4.0",
     "mongoose": "^8.7.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

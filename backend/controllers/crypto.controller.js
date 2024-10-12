@@ -1,5 +1,6 @@
 import { verify } from 'hcaptcha';
 import { User } from '../models/user.model.js'
+import { Advert } from '../models/advert.model.js'
 import { sendPepe } from '../modules/pepe.js';
 
 
@@ -111,6 +112,92 @@ export const Dashboradfacuet = async (req, res) => {
         user.lastFaucetClaim = currentTime;
         await user.save();
         return res.status(200).json({ success: true, message: "Crypto sent to user's wallet", txId: result.txId });
+    } catch (error){
+        console.log('Error while requesting facuet, ', error);
+    }
+}
+
+
+
+export const createAdvert = async (req, res) => {
+    const { name,description,url, payout, viewers, duration } = req.body;
+    const ipAddress = req.ip; 
+    const currentTime = Date.now(); 
+    try{
+        const user = await User.findById(req.userID);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+
+        // Check if the user has the funds.
+        if (user.credit < (payout*viewers)){
+            return res.status(404).json({ success: false, message: "Insufficient funds" });
+        }
+
+
+        const advert = new Advert({
+            name: name,
+            description: description,
+            url: url,
+            payout: payout,
+            viewers: viewers,
+            currentPayout: 0,
+            time: duration,
+            ownerid: req.userID
+        })
+
+        await advert.save();
+
+
+        user.credit = user.credit-(payout*viewers);
+        await user.save();
+
+        return res.status(200).json({ success: true, message: "Ad successfully created!" });
+    } catch (error){
+        console.log('Error while requesting facuet, ', error);
+    }
+}
+
+
+export const getAdverts = async (req, res) => {
+    try{
+        const user = await User.findById(req.userID);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        
+        const adverts = await Advert.find({});
+
+        return res.status(200).json({
+            success: true,
+            message: "All adverts fetched successfully!",
+            adverts: adverts
+        });
+    } catch (error){
+        console.log('Error while requesting facuet, ', error);
+    }
+}
+
+
+export const getAdvert = async (req, res) => {
+    const { id } = req.params
+    try{
+        const user = await User.findById(req.userID);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        
+        const advert = await Advert.findById(id);
+        if (!advert){
+            return res.status(404).json({ success: false, message: "Advert not found" });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "All advert fetched successfully!",
+            advert: advert
+        });
     } catch (error){
         console.log('Error while requesting facuet, ', error);
     }
