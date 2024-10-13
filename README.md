@@ -1,53 +1,55 @@
-# NexAd
+# 🚀 **NexAd**
 
 ![NexAd Hero Image](/imgs/hero.png)
 
-## Project Overview
+## 📖 Project Overview
 
-**NexAd** is a framework designed for a CPA (Cost-Per-Action) and watch-to-earn platform, where users can earn **Pepe** tokens by watching advertisements and completing surveys. Users can also claim free Pepe tokens through an on-site faucet. Additionally, NexAd allows advertisers to host their own ads by paying in Pepe tokens, which are then distributed to users as rewards.
+**NexAd** is a CPA (Cost-Per-Action) and watch-to-earn platform where users can earn **Pepe** tokens 🐸 by watching advertisements 📺 and completing surveys 📝. Users can also claim free Pepe tokens via an on-site faucet 💧. Advertisers can host their ads by paying in Pepe tokens, which are then distributed as rewards 🎁.
 
-This project provides a fully functional example of integrating crypto payments with a web advertising service. Whether you're looking to build a crypto-driven advertising platform or explore web development with blockchain integration, NexAd serves as a solid foundation.
-
----
-
-## Features
-
-- **Watch-to-Earn:** Users earn Pepe tokens by watching ads or completing surveys.
-- **Crypto Faucet:** Users can claim free Pepe tokens through a built-in faucet.
-- **Advert Hosting:** Advertisers can create ads, set budgets, and pay with Pepe tokens, which are distributed to users.
-- **User Authentication:** Secure login, sign-up, and email verification.
-- **PepeCLI Wallet Integration:** Full integration for crypto transactions using Pepe tokens.
+This project is a complete example of integrating crypto payments 💸 with web advertising services. Whether you're aiming to build a crypto-driven advertising platform or explore web development with blockchain integration, **NexAd** provides a solid foundation 🛠️.
 
 ---
 
-## Tech Stack
+## 🌟 Features
+
+- **Watch-to-Earn:** Users earn Pepe tokens 🐸 by watching ads 🎥 or completing surveys 📝.
+- **Crypto Faucet:** Claim free Pepe tokens 💰 through a built-in faucet 💧.
+- **Advert Hosting:** Advertisers can create ads, set budgets, and pay in Pepe tokens 🔥.
+- **User Authentication:** Secure login 🔐, sign-up 📝, and email verification 📧.
+- **PepeCLI Wallet Integration:** Full integration for crypto transactions using Pepe tokens 💳.
+
+---
+
+## 🛠️ Tech Stack
 
 NexAd is built using the following technologies:
 
-- **Frontend:** [React](https://reactjs.org/) + [Tailwind CSS](https://tailwindcss.com/) for responsive UI development.
-- **Backend:** [Node.js](https://nodejs.org/) for server-side logic and APIs.
-- **Wallet Integration:** [PepeCLI Wallet](https://pepecoin.org/) for handling cryptocurrency transactions.
-- **Email Handling:** [MailTrap](https://mailtrap.io/) for development email testing.
+| **Technology**   | **Description**                           | **Icon**  |
+|------------------|-------------------------------------------|-----------|
+| **Frontend**      | [React](https://reactjs.org/) + [Tailwind CSS](https://tailwindcss.com/) for responsive UI development. | ![React](https://img.shields.io/badge/-React-61DAFB?style=for-the-badge&logo=react&logoColor=white) ![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) |
+| **Backend**       | [Node.js](https://nodejs.org/) for server-side logic and APIs. | ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white) |
+| **Wallet Integration** | [PepeCLI Wallet](https://pepecoin.org/) for handling cryptocurrency transactions. | ![Pepe](https://img.shields.io/badge/-PepeCLI-34c759?style=for-the-badge&logo=blockchain&logoColor=white) |
+| **Email Handling** | [MailTrap](https://mailtrap.io/) for development email testing. | ![MailTrap](https://img.shields.io/badge/-MailTrap-1F1F1F?style=for-the-badge&logoColor=white) |
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
-### Dashboard
+### 🖥️ Dashboard
 ![NexAd Dashboard](/imgs/dashboard.png)
 
-### Advertisements
+### 📊 Advertisements
 ![NexAd Advertisements](/imgs/advertisments.png)
 
-### Faucet
+### 💧 Faucet
 ![NexAd Faucet](/imgs/faucet.png)
 
-### Advertiser Interface
+### 💼 Advertiser Interface
 ![Create Advertisement](/imgs/advertise.png)
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 ### Backend & Frontend Setup
 
@@ -56,40 +58,32 @@ NexAd is built using the following technologies:
    cd backend
    ```
 
-2. Create a `.env` file in the `backend` directory. The backend uses environment variables for configuration. Your `.env` file should look like this:
+2. Create a `.env` file in the `backend` directory. Your `.env` file should look like this:
 
    ```bash
    MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db_name>?retryWrites=true&w=majority&appName=<app_name>
    PORT=5000
    JWT_SECRET=yourJWTSecretKey
    NODE_ENV=production
-
    MAILTRAP_TOKEN=yourMailTrapToken
-
    CAPTCHA_SECRET=yourHCaptchaSecret
-
    CLIENT_URL=http://localhost:5173
    ```
 
-   > **Note:** Replace `<username>`, `<password>`, `<cluster>`, `<db_name>`, and `<app_name>` with your actual MongoDB connection details. Replace other values with your secret keys.
-
-3. Run the build script, which will install the necessary dependencies for both the backend and the frontend. This will also build the frontend into the production-ready `dist` folder.
+3. Run the build script 🛠️:
    ```bash
    npm run build
    ```
 
-4. To run the backend and serve the frontend in **production mode**:
+4. To run the backend and serve the frontend in **production mode** 🚀:
    ```bash
    npm run start
    ```
 
-   This will launch both the backend server and serve the pre-built frontend from the `dist` folder.
-
-5. For **development mode** (backend only), run:
+5. For **development mode** (backend only) 👨‍💻, run:
    ```bash
    npm run dev
    ```
-   > **Note:** The development mode runs only the backend. You will need to run the frontend separately in development mode (see below).
 
 ### Frontend Development Setup
 
@@ -98,23 +92,21 @@ NexAd is built using the following technologies:
    cd frontend
    ```
 
-2. Install the frontend dependencies:
+2. Install the frontend dependencies 📦:
    ```bash
    npm install
    ```
-   > **Note:** Only do this if you havent already ran the backends build script.
-3. Run the frontend in development mode:
+
+3. Run the frontend in **development mode** 🌐:
    ```bash
    npm run dev
    ```
 
-This will launch the frontend on its own development server, typically at `http://localhost:5000`. You'll need to ensure the backend is also running (either in dev or prod mode) to test the full application.
-
 ---
 
-## API Endpoints
+## 🛡️ API Endpoints
 
-### Crypto Endpoints
+### 💸 Crypto Endpoints
 
 - **Faucet Claim:**
   - `POST /api/crypto/faucet`
@@ -125,9 +117,8 @@ This will launch the frontend on its own development server, typically at `http:
       token: "hCaptcha_token"
     }
     ```
-  - Response: 1 to 20 Pepe payout.
 
-- **Faucet Dashboard (Requires Authentication):**
+- **Faucet Dashboard:**
   - `POST /api/crypto/faucet-dashboard`
   - Request Body:
     ```js
@@ -135,11 +126,10 @@ This will launch the frontend on its own development server, typically at `http:
       wallet: "wallet_address"
     }
     ```
-  - Response: 1 to 120 Pepe payout.
 
-### Advertisement Endpoints
+### 📢 Advertisement Endpoints
 
-- **Create an Advertisement (Requires Authentication):**
+- **Create an Advertisement:**
   - `POST /api/crypto/create-advert`
   - Request Body:
     ```js
@@ -152,19 +142,8 @@ This will launch the frontend on its own development server, typically at `http:
       duration: "ad_duration"
     }
     ```
-  - Total ad cost is calculated as `viewers * payout`.
 
-- **List All Advertisements (Requires Authentication):**
-  - `GET /api/crypto/adverts`
-
-- **Get Specific Advertisement (Requires Authentication):**
-  - `GET /api/crypto/advert/:id`
-  - Request Parameters:
-    ```js
-    { id: "advert_id" }
-    ```
-
-### Authentication Endpoints
+### 🔐 Authentication Endpoints
 
 - **Check Authentication Status:**
   - `GET /api/auth/check-auth`
@@ -220,22 +199,10 @@ This will launch the frontend on its own development server, typically at `http:
 
 ---
 
-## Contributing
+## 📬 Contact
 
-We welcome contributions to NexAd! Feel free to fork the repository and submit a pull request with your changes or improvements. Make sure to follow our [contribution guidelines](CONTRIBUTING.md) (coming soon) before submitting any PRs.
-
----
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+For any questions or issues, feel free to open an issue on GitHub 🐙 or contact the project maintainers 👨‍💻.
 
 ---
 
-## Contact
-
-If you have any questions or issues, feel free to open an issue on GitHub or contact the project maintainers.
-
---- 
-
-### Happy Earnings with NexAd! 🎉
+### 🎉 **Happy Earnings with NexAd!** 🤑
