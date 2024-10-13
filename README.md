@@ -1,57 +1,114 @@
 # NexAd
 
-![NexAd](./imgs/hero.png)
+![NexAd Hero Image](/imgs/hero.png)
 
-## Overview
+## Project Overview
 
-**NexAd** is a framework for a CPA (Cost Per Action) and Watch-to-Earn platform where users earn *Pepe* by watching advertisements, completing surveys, and claiming rewards through an on-site faucet. Users can also pay *Pepe* to host their own ads on the platform, making it a two-way marketplace for both advertisers and viewers.
+**NexAd** is a framework designed for a CPA (Cost-Per-Action) and watch-to-earn platform, where users can earn **Pepe** tokens by watching advertisements and completing surveys. Users can also claim free Pepe tokens through an on-site faucet. Additionally, NexAd allows advertisers to host their own ads by paying in Pepe tokens, which are then distributed to users as rewards.
+
+This project provides a fully functional example of integrating crypto payments with a web advertising service. Whether you're looking to build a crypto-driven advertising platform or explore web development with blockchain integration, NexAd serves as a solid foundation.
+
+---
 
 ## Features
 
-- **Watch to Earn**: Earn *Pepe* by watching ads and filling out surveys.
-- **Faucet**: Claim free *Pepe* periodically through an on-site faucet.
-- **Advert Hosting**: Pay *Pepe* to create and host your own ads.
-- **Custom Dashboard**: Monitor earnings and advertisement stats via an interactive dashboard.
-- **Crypto Integration**: Integrated with *PepeCLI* wallet for payments and rewards distribution.
-
-![Dashboard](./imgs/dashboard.png)
-![Faucet](./imgs/faucet.png)
+- **Watch-to-Earn:** Users earn Pepe tokens by watching ads or completing surveys.
+- **Crypto Faucet:** Users can claim free Pepe tokens through a built-in faucet.
+- **Advert Hosting:** Advertisers can create ads, set budgets, and pay with Pepe tokens, which are distributed to users.
+- **User Authentication:** Secure login, sign-up, and email verification.
+- **PepeCLI Wallet Integration:** Full integration for crypto transactions using Pepe tokens.
 
 ---
 
 ## Tech Stack
 
-NexAd is built with the following technologies:
+NexAd is built using the following technologies:
 
-- **Frontend**: React, Tailwind CSS
-- **Backend**: Node.js, Express
-- **Wallet**: PepeCLI Wallet for handling *Pepe* transactions
-- **Email Service**: MailTrap for email delivery during testing and development
+- **Frontend:** [React](https://reactjs.org/) + [Tailwind CSS](https://tailwindcss.com/) for responsive UI development.
+- **Backend:** [Node.js](https://nodejs.org/) for server-side logic and APIs.
+- **Wallet Integration:** [PepeCLI Wallet](https://pepecoin.org/) for handling cryptocurrency transactions.
+- **Email Handling:** [MailTrap](https://mailtrap.io/) for development email testing.
+
+---
+
+## Screenshots
+
+### Dashboard
+![NexAd Dashboard](/imgs/dashboard.png)
+
+### Advertisements
+![NexAd Advertisements](/imgs/advertisments.png)
+
+### Faucet
+![NexAd Faucet](/imgs/faucet.png)
+
+### Advertiser Interface
+![Create Advertisement](/imgs/advertise.png)
 
 ---
 
 ## Installation
 
-1. Clone the repository and navigate to the `backend` folder:
+### Backend & Frontend Setup
+
+1. Navigate to the `backend` directory:
    ```bash
-   git clone <repo_url>
-   cd NexAd/backend
+   cd backend
    ```
 
-2. Run the build script to install necessary dependencies:
+2. Create a `.env` file in the `backend` directory. The backend uses environment variables for configuration. Your `.env` file should look like this:
+
+   ```bash
+   MONGO_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<db_name>?retryWrites=true&w=majority&appName=<app_name>
+   PORT=5000
+   JWT_SECRET=yourJWTSecretKey
+   NODE_ENV=production
+
+   MAILTRAP_TOKEN=yourMailTrapToken
+
+   CAPTCHA_SECRET=yourHCaptchaSecret
+
+   CLIENT_URL=http://localhost:5173
+   ```
+
+   > **Note:** Replace `<username>`, `<password>`, `<cluster>`, `<db_name>`, and `<app_name>` with your actual MongoDB connection details. Replace other values with your secret keys.
+
+3. Run the build script, which will install the necessary dependencies for both the backend and the frontend. This will also build the frontend into the production-ready `dist` folder.
    ```bash
    npm run build
    ```
 
-3. To run the application:
-   - For **development mode**: 
-     ```bash
-     npm run dev
-     ```
-   - For **production mode**:
-     ```bash
-     npm run start
-     ```
+4. To run the backend and serve the frontend in **production mode**:
+   ```bash
+   npm run start
+   ```
+
+   This will launch both the backend server and serve the pre-built frontend from the `dist` folder.
+
+5. For **development mode** (backend only), run:
+   ```bash
+   npm run dev
+   ```
+   > **Note:** The development mode runs only the backend. You will need to run the frontend separately in development mode (see below).
+
+### Frontend Development Setup
+
+1. Navigate to the `frontend` directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install the frontend dependencies:
+   ```bash
+   npm install
+   ```
+   > **Note:** Only do this if you havent already ran the backends build script.
+3. Run the frontend in development mode:
+   ```bash
+   npm run dev
+   ```
+
+This will launch the frontend on its own development server, typically at `http://localhost:5000`. You'll need to ensure the backend is also running (either in dev or prod mode) to test the full application.
 
 ---
 
@@ -59,73 +116,119 @@ NexAd is built with the following technologies:
 
 ### Crypto Endpoints
 
-- **Claim from Faucet**:
-  - Endpoint: `/api/crypto/faucet`
-  - Method: `POST`
-  - Requires a valid wallet address and Hcaptcha token to payout between 1-20 *Pepe*.
-
-- **Faucet Dashboard**:
-  - Endpoint: `/api/crypto/faucet-dashboard`
-  - Method: `GET`
-  - Requires an account to view, and payouts range between 1-120 *Pepe*.
-
-### Advert Endpoints
-
-- **Create an Advertisement**:
-  - Endpoint: `/api/crypto/create-advert`
-  - Method: `POST`
-  - Requires an account and the following fields in the body:
-    ```json
+- **Faucet Claim:**
+  - `POST /api/crypto/faucet`
+  - Request Body:
+    ```js
     {
-      "name": "Ad Name",
-      "description": "Ad Description",
-      "url": "https://advertiser-site.com",
-      "payout": 50,
-      "viewers": 100,
-      "duration": 30
+      wallet: "wallet_address",
+      token: "hCaptcha_token"
+    }
+    ```
+  - Response: 1 to 20 Pepe payout.
+
+- **Faucet Dashboard (Requires Authentication):**
+  - `POST /api/crypto/faucet-dashboard`
+  - Request Body:
+    ```js
+    {
+      wallet: "wallet_address"
+    }
+    ```
+  - Response: 1 to 120 Pepe payout.
+
+### Advertisement Endpoints
+
+- **Create an Advertisement (Requires Authentication):**
+  - `POST /api/crypto/create-advert`
+  - Request Body:
+    ```js
+    {
+      name: "ad_name",
+      description: "ad_description",
+      url: "ad_image_url",
+      payout: "pepe_per_view",
+      viewers: "desired_viewer_count",
+      duration: "ad_duration"
+    }
+    ```
+  - Total ad cost is calculated as `viewers * payout`.
+
+- **List All Advertisements (Requires Authentication):**
+  - `GET /api/crypto/adverts`
+
+- **Get Specific Advertisement (Requires Authentication):**
+  - `GET /api/crypto/advert/:id`
+  - Request Parameters:
+    ```js
+    { id: "advert_id" }
+    ```
+
+### Authentication Endpoints
+
+- **Check Authentication Status:**
+  - `GET /api/auth/check-auth`
+
+- **Sign Up:**
+  - `POST /api/auth/signup`
+  - Request Body:
+    ```js
+    {
+      email: "user_email",
+      password: "user_password",
+      name: "user_name"
     }
     ```
 
-- **View All Advertisements**:
-  - Endpoint: `/api/crypto/adverts`
-  - Method: `GET`
-  - Requires an account to return a list of all active ads.
+- **Log In:**
+  - `POST /api/auth/login`
+  - Request Body:
+    ```js
+    {
+      email: "user_email",
+      password: "user_password"
+    }
+    ```
 
-- **View Advertisement by ID**:
-  - Endpoint: `/api/crypto/advert/:id`
-  - Method: `GET`
-  - Requires an account and returns an advert by its unique ID, which can be displayed to users.
+- **Log Out:**
+  - `POST /api/auth/logout`
 
----
+- **Email Verification:**
+  - `POST /api/auth/verify-email`
+  - Request Body:
+    ```js
+    { code: "verification_code" }
+    ```
 
-## Screenshots
+- **Forgot Password:**
+  - `POST /api/auth/forgot-password`
+  - Request Body:
+    ```js
+    { email: "user_email" }
+    ```
 
-### Advertisement Creation Page
-![Advert Creation](./imgs/advertise.png)
-
-### Advertisement Display
-![Advertisements](./imgs/advertisments.png)
-
-### Dashboard View
-![Dashboard](./imgs/dashboard.png)
+- **Reset Password:**
+  - `POST /api/auth/reset-password/:token`
+  - Request Parameters:
+    ```js
+    { token: "reset_token" }
+    ```
+  - Request Body:
+    ```js
+    { password: "new_password" }
+    ```
 
 ---
 
 ## Contributing
 
-We welcome contributions to improve NexAd! If you'd like to contribute:
-
-1. Fork the repo.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Commit your changes (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
+We welcome contributions to NexAd! Feel free to fork the repository and submit a pull request with your changes or improvements. Make sure to follow our [contribution guidelines](CONTRIBUTING.md) (coming soon) before submitting any PRs.
 
 ---
 
 ## License
 
-NexAd is open-source and distributed under the MIT License. See `LICENSE` for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
